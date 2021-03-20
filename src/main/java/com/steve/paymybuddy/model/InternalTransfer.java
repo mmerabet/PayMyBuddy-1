@@ -1,27 +1,52 @@
 package com.steve.paymybuddy.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name = "internal_transfer")
-public class InternalTransfer {
-    @Id
-    @Column(name = "transfer_id")
-    private int transfer_id;
-    @Column(name = "sender")
-    private int sender;
-    @Column(name = "receiver")
-    private int receiver;
+@PrimaryKeyJoinColumn(name = "transfer_id") // PK de l'entité mere
+public class InternalTransfer extends Transfer{
+
+    @JoinColumn(name = "sender")
+    @ManyToOne
+    private User userSender;
+
+    @JoinColumn(name = "receiver")
+    @ManyToOne
+    private User userReceiver;
 
     public InternalTransfer() {
     }
 
-    public InternalTransfer(int transfer_id, int sender, int receiver) {
-        this.transfer_id = transfer_id;
-        this.sender = sender;
-        this.receiver = receiver;
+    public InternalTransfer(BigDecimal amount, String description, Date transactionDate, String status, User userSender, User userReceiver) {
+        super(amount, description, transactionDate, status);
+        this.userSender = userSender;
+        this.userReceiver = userReceiver;
+    }
+
+    public User getUserSender() {
+        return userSender;
+    }
+
+    public void setUserSender(User userSender) {
+        this.userSender = userSender;
+    }
+
+    public User getUserReceiver() {
+        return userReceiver;
+    }
+
+    public void setUserReceiver(User userReceiver) {
+        this.userReceiver = userReceiver;
+    }
+
+    @Override
+    public String toString() {
+        return "InternalTransfer{" +
+                "userSender=" + userSender +
+                ", userReceiver=" + userReceiver +
+                '}';
     }
 }

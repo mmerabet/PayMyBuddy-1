@@ -1,27 +1,50 @@
 package com.steve.paymybuddy.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name = "external_transfer")
-public class ExternalTransfer {
-    @Id
-    @Column(name = "transfer_id")
-    private int transferId;
+@PrimaryKeyJoinColumn(name = "transfer_id") // PK de l'entité mere
+public class ExternalTransfer extends Transfer{
+
     @Column(name = "fees")
-    private double fees;
-    @Column(name = "bank_account_iban")
-    private String bankAccountIban;
+    private BigDecimal fees;
+
+    @ManyToOne
+    @JoinColumn(name = "bank_account_iban")
+    private BankAccount bankAccount;
 
     public ExternalTransfer() {
+        super();
     }
 
-    public ExternalTransfer(int transferId, double fees, String bankAccountIban) {
-        this.transferId = transferId;
+    public ExternalTransfer(BigDecimal amount, String description, Date transactionDate, String status, BigDecimal fees, BankAccount bankAccount) {
+        super(amount, description, transactionDate, status);
+    }
+
+    public BigDecimal getFees() {
+        return fees;
+    }
+
+    public void setFees(BigDecimal fees) {
         this.fees = fees;
-        this.bankAccountIban = bankAccountIban;
+    }
+
+    public BankAccount getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
+    @Override
+    public String toString() {
+        return "ExternalTransfer{" +
+                "fees=" + fees +
+                ", bankAccount=" + bankAccount +
+                '}';
     }
 }

@@ -1,34 +1,43 @@
 package com.steve.paymybuddy.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name ="bank_account" )
+@Table(name = "bank_account")
 public class BankAccount {
     @Id
-    @Column(name = "iban")
+    @Column(name = "iban", length = 34)
     private String iban;
+
     @Column(name = "bic")
     private String bic;
+
     @Column(name = "bankName")
     private String bankName;
+
     @Column(name = "accountName")
     private String accountName;
-    @Column(name = "user_iD")
-    private int userID;
+
+    @JoinColumn(name = "user_id")
+    @ManyToOne
+    private User user;
 
     public BankAccount() {
     }
 
-    public BankAccount(String iban, String bic, String bankName, String accountName, int userID) {
+    public BankAccount(String iban, String bic, String bankName, String accountName) {
         this.iban = iban;
         this.bic = bic;
         this.bankName = bankName;
         this.accountName = accountName;
-        this.userID = userID;
+    }
+
+    public BankAccount(String iban, String bic, String bankName, String accountName, User user) {
+        this.iban = iban;
+        this.bic = bic;
+        this.bankName = bankName;
+        this.accountName = accountName;
+        this.user = user;
     }
 
     public String getIban() {
@@ -63,22 +72,4 @@ public class BankAccount {
         this.accountName = accountName;
     }
 
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-    @Override
-    public String toString() {
-        return "BankAccount{" +
-                "iban='" + iban + '\'' +
-                ", bic='" + bic + '\'' +
-                ", bankName='" + bankName + '\'' +
-                ", accountName='" + accountName + '\'' +
-                ", userID=" + userID +
-                '}';
-    }
 }

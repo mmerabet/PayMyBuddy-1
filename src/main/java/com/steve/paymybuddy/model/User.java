@@ -1,7 +1,9 @@
 package com.steve.paymybuddy.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -10,60 +12,76 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
-    @Column(name = "firstName")
-    private String firstName;
+    @Column(name = "firstname")
+    private String firstname;
 
-    @Column(name = "lastName")
-    private String lastName;
+    @Column(name = "lastname")
+    private String lastname;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")
     private String password;
 
     @Column(name = "balance")
-    private Double balance;
+    private BigDecimal balance;
 
-    @Column(name = "createDate")
+    @Column
     private Date createDate;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<BankAccount> bankAccounts;
+
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private List<Relation> relations;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password, Double balance, Date createDate) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(Integer id, String firstName, String lastName, String email, String password, BigDecimal balance, Date createDate) {
+        this.id = id;
+        this.firstname = firstName;
+        this.lastname = lastName;
         this.email = email;
         this.password = password;
         this.balance = balance;
         this.createDate = createDate;
     }
 
-    public int getId() {
+    public User(String firstName, String lastName, String email, String password, BigDecimal balance, Date createDate) {
+        this.firstname = firstName;
+        this.lastname = lastName;
+        this.email = email;
+        this.password = password;
+        this.balance = balance;
+        this.createDate = createDate;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     public String getFirstName() {
-        return firstName;
+        return firstname;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstname = firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return lastname;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastname = lastName;
     }
 
     public String getEmail() {
@@ -82,11 +100,11 @@ public class User {
         this.password = password;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
@@ -98,17 +116,29 @@ public class User {
         this.createDate = createDate;
     }
 
+    public List<BankAccount> getBankAccounts() {
+        return bankAccounts;
+    }
+
+    public void setBankAccounts(List<BankAccount> bankAccounts) {
+        this.bankAccounts = bankAccounts;
+    }
+
+    public List<Relation> getRelations() {
+        return relations;
+    }
+
+    public void setRelations(List<Relation> relations) {
+        this.relations = relations;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", balance=" + balance +
                 ", createDate=" + createDate +
                 '}';
     }
-
 }

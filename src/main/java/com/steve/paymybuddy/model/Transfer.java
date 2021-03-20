@@ -1,20 +1,20 @@
 package com.steve.paymybuddy.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Table(name = "transfer")
+@Inheritance(strategy = InheritanceType.JOINED) // la PK est partager dans les 2 class filles (Internal, External transfer)
 public class Transfer {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "amount")
-    private double amount;
+    private BigDecimal amount;
 
     @Column(name = "description")
     private String description ;
@@ -28,26 +28,34 @@ public class Transfer {
     public Transfer() {
     }
 
-    public Transfer(double amount, String description, Date transactionDate, String status) {
+    public Transfer(BigDecimal amount, String description, Date transactionDate, String status) {
         this.amount = amount;
         this.description = description;
         this.transactionDate = transactionDate;
         this.status = status;
     }
 
-    public int getId() {
+    public Transfer(Integer id, BigDecimal amount, String description, Date transactionDate, String status) {
+        this.id = id;
+        this.amount = amount;
+        this.description = description;
+        this.transactionDate = transactionDate;
+        this.status = status;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
