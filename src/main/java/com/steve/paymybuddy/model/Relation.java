@@ -1,5 +1,7 @@
 package com.steve.paymybuddy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity

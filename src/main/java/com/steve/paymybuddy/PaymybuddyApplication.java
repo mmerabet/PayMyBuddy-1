@@ -36,5 +36,4 @@ public class PaymybuddyApplication {
         System.out.println(userDao.findAll().get(0).getRelations().get(0));
 
     }
-
 }
