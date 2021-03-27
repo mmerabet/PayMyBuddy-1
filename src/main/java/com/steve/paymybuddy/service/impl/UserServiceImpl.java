@@ -1,8 +1,9 @@
-package com.steve.paymybuddy.service;
+package com.steve.paymybuddy.service.impl;
 
 import com.steve.paymybuddy.dao.UserDao;
 import com.steve.paymybuddy.dto.UserDto;
 import com.steve.paymybuddy.model.User;
+import com.steve.paymybuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

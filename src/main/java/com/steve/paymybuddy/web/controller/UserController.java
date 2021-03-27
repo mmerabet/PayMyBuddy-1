@@ -15,14 +15,14 @@ import java.util.logging.Logger;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     // Pour le log4J
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @GetMapping(value = "/Users")
     @ResponseStatus(HttpStatus.OK)
-    public List<UserDto> users(){
+    public List<UserDto> users() {
         return userService.findAll();
     }
 }

@@ -1,7 +1,6 @@
 package com.steve.paymybuddy.web.controller;
 
-import com.steve.paymybuddy.model.User;
-import com.steve.paymybuddy.service.UserService;
+import com.steve.paymybuddy.service.TransferService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -14,46 +13,31 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class UserControllerTest {
+class TransferControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
     @MockBean
-    UserService userService;
-
-    Date dateTest = new Date();
-
-    String firstNameTest = "john";
-    String lastNameTest = "wick";
-    String emailTest = "john@gmail.com";
-    String password = "123";
-    BigDecimal balance;
-    Date createDate = dateTest;
-    User pierre  = new User();
-    User stephane  = new User();
+    TransferService transferService;
 
     @Test
-    void getUsers() throws Exception {
+    void getTransfer() throws Exception{
+
 
         // Etape 1 : on envoie une requête GET
         // + on vérifie que le statut de la réponse est 200
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/Users"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/Transfer"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
         // Etape 2 : on vérifie que le service a bien été appelé avec les bons
         // paramètres
 
-        Mockito.verify(userService, Mockito.times(1)).findAll();
-
+        Mockito.verify(transferService, Mockito.times(1)).findAll();
     }
-
 
 }
