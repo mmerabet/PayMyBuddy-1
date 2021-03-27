@@ -32,8 +32,9 @@ public class User {
     @Column
     private Date createDate;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<BankAccount> bankAccounts;
+    @OneToOne
+    @JoinColumn(name = "iban")
+    private BankAccount bankAccount;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Relation> relations;
@@ -41,7 +42,7 @@ public class User {
     public User() {
     }
 
-    public User(Integer id, String firstName, String lastName, String email, String password, BigDecimal balance, Date createDate) {
+    public User(Integer id, String firstName, String lastName, String email, String password, BigDecimal balance, Date createDate, BankAccount bankAccount) {
         this.id = id;
         this.firstname = firstName;
         this.lastname = lastName;
@@ -49,15 +50,18 @@ public class User {
         this.password = password;
         this.balance = balance;
         this.createDate = createDate;
+        this.bankAccount = bankAccount;
     }
 
-    public User(String firstName, String lastName, String email, String password, BigDecimal balance, Date createDate) {
+    public User(String firstName, String lastName, String email, String password, BigDecimal balance, Date createDate, BankAccount bankAccount) {
         this.firstname = firstName;
         this.lastname = lastName;
         this.email = email;
         this.password = password;
         this.balance = balance;
         this.createDate = createDate;
+        this.bankAccount = bankAccount;
+
     }
 
     public Integer getId() {
@@ -68,20 +72,20 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
+    public String getFirstname() {
         return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstname = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
+    public String getLastname() {
         return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastname = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -116,12 +120,12 @@ public class User {
         this.createDate = createDate;
     }
 
-    public List<BankAccount> getBankAccounts() {
-        return bankAccounts;
+    public BankAccount getBankAccount() {
+        return bankAccount;
     }
 
-    public void setBankAccounts(List<BankAccount> bankAccounts) {
-        this.bankAccounts = bankAccounts;
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
     }
 
     public List<Relation> getRelations() {
@@ -135,10 +139,15 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "firstname='" + firstname + '\'' +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", balance=" + balance +
                 ", createDate=" + createDate +
+                ", bankAccount=" + bankAccount +
+                ", relations=" + relations +
                 '}';
     }
 }
