@@ -38,4 +38,20 @@ public class BankAccountControllerTest {
         Mockito.verify(bankAccountService, Mockito.times(1)).findAll();
 
     }
+
+    @Test
+    void getCountBankAccount() throws Exception{
+
+
+        // Etape 1 : on envoie une requête GET
+        // + on vérifie que le statut de la réponse est 200
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/BankAccountCount"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        // Etape 2 : on vérifie que le service a bien été appelé avec les bons
+        // paramètres
+
+        Mockito.verify(bankAccountService, Mockito.times(1)).countBankAccount();
+    }
 }

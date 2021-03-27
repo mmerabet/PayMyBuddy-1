@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface UserService {
     List<UserDto> findAll();
+
+    long countUsers();
+
+    UserDto userByEmail(String email);
 }

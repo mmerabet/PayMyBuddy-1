@@ -25,4 +25,5 @@ public class TransferController {
     public List<TransferDto> transfer() {
         return transferService.findAll();
     }
+
 }

@@ -19,7 +19,7 @@ public class PaymybuddyApplication {
 
         //Test connection JPA
         UserDao userDao = context.getBean(UserDao.class);
-        System.out.println("list des users " + userDao.findAll());
+//        System.out.println("list des users " + userDao.findAll());
 
         //Test liaison entre user et bankAccount
         List<User> users = userDao.findAll();
@@ -27,13 +27,13 @@ public class PaymybuddyApplication {
 
         //test transfert
         ExternalTransferDao externalTransferDao = context.getBean(ExternalTransferDao.class);
-        System.out.println("description 1er externaltransfer " + externalTransferDao.findAll().get(0).getDescription());
+//        System.out.println("description 1er externaltransfer " + externalTransferDao.findAll().get(0).getDescription());
 
         InternalTransferDao internalTransferDao = context.getBean(InternalTransferDao.class);
-        System.out.println("description 1er internaltransfer " + internalTransferDao.findAll().get(0).getDescription());
+//        System.out.println("description 1er internaltransfer " + internalTransferDao.findAll().get(0).getDescription());
 
         //test relation
-        System.out.println(userDao.findAll().get(0).getRelations().get(0));
+//        System.out.println(userDao.findAll().get(0).getRelations().get(0));
 
     }
 }

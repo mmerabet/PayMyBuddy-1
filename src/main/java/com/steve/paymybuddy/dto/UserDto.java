@@ -1,13 +1,17 @@
 package com.steve.paymybuddy.dto;
 
 
+import com.steve.paymybuddy.model.BankAccount;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class UserDto {
-
+    private Integer id;
     private String firstName;
     private String lastname;
+    private List<BankAccount> bankAccounts;
 
     @Email
     @NotNull
@@ -16,10 +20,20 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(String firstName, String lastname, String email) {
+    public UserDto(Integer id, String firstName, String lastname, @Email @NotNull String email, List<BankAccount> bankAccounts) {
+        this.id = id;
         this.firstName = firstName;
         this.lastname = lastname;
         this.email = email;
+        this.bankAccounts = bankAccounts;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -46,11 +60,21 @@ public class UserDto {
         this.email = email;
     }
 
+    public List<BankAccount> getBankAccounts() {
+        return bankAccounts;
+    }
+
+    public void setBankAccounts(List<BankAccount> bankAccounts) {
+        this.bankAccounts = bankAccounts;
+    }
+
     @Override
     public String toString() {
         return "UserDto{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastname='" + lastname + '\'' +
+                ", bankAccounts=" + bankAccounts +
                 ", email='" + email + '\'' +
                 '}';
     }

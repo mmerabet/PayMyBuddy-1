@@ -55,5 +55,36 @@ class UserControllerTest {
 
     }
 
+    @Test
+    void getCountUsers() throws Exception{
+
+
+        // Etape 1 : on envoie une requête GET
+        // + on vérifie que le statut de la réponse est 200
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/UsersCount"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        // Etape 2 : on vérifie que le service a bien été appelé avec les bons
+        // paramètres
+
+        Mockito.verify(userService, Mockito.times(1)).countUsers();
+    }
+
+    @Test
+    void getUserByEmail() throws Exception{
+
+
+        // Etape 1 : on envoie une requête GET
+        // + on vérifie que le statut de la réponse est 200
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/Users/"+emailTest))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        // Etape 2 : on vérifie que le service a bien été appelé avec les bons
+        // paramètres
+
+        Mockito.verify(userService, Mockito.times(1)).userByEmail(emailTest);
+    }
 
 }

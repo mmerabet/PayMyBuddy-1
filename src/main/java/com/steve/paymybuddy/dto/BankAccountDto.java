@@ -10,15 +10,17 @@ public class BankAccountDto {
     private String bic;
     private String bankName;
     private String accountName;
+    private UserDto userDto;
 
     public BankAccountDto() {
     }
 
-    public BankAccountDto(@NotNull String iban, String bic, String bankName, String accountName) {
+    public BankAccountDto(@NotNull String iban, String bic, String bankName, String accountName, UserDto userDto) {
         this.iban = iban;
         this.bic = bic;
         this.bankName = bankName;
         this.accountName = accountName;
+        this.userDto = userDto;
     }
 
     public String getIban() {
@@ -53,6 +55,14 @@ public class BankAccountDto {
         this.accountName = accountName;
     }
 
+    public UserDto getUserDto() {
+        return userDto;
+    }
+
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
+    }
+
     @Override
     public String toString() {
         return "BankAccountDto{" +
@@ -60,6 +70,7 @@ public class BankAccountDto {
                 ", bic='" + bic + '\'' +
                 ", bankName='" + bankName + '\'' +
                 ", accountName='" + accountName + '\'' +
+                ", userDto=" + userDto +
                 '}';
     }
 }

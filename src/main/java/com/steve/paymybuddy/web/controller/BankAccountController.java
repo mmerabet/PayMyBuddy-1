@@ -1,10 +1,12 @@
 package com.steve.paymybuddy.web.controller;
 
 import com.steve.paymybuddy.dto.BankAccountDto;
+import com.steve.paymybuddy.dto.UserDto;
 import com.steve.paymybuddy.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,4 +28,15 @@ public class BankAccountController {
         return bankAccountService.findAll();
     }
 
+    @GetMapping(value = "/BankAccountCount")
+    @ResponseStatus(HttpStatus.OK)
+    public long countUsers() {
+        return bankAccountService.countBankAccount();
+    }
+
+    @GetMapping(value = "/BankAccount/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<BankAccountDto> user(@PathVariable String email) {
+        return bankAccountService.bankAccountByEmail(email);
+    }
 }

@@ -5,6 +5,7 @@ import com.steve.paymybuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,5 +25,17 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public List<UserDto> users() {
         return userService.findAll();
+    }
+
+    @GetMapping(value = "/UsersCount")
+    @ResponseStatus(HttpStatus.OK)
+    public long countUsers() {
+        return userService.countUsers();
+    }
+
+    @GetMapping(value = "/Users/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserDto> user(@PathVariable String email) {
+        return userService.userByEmail(email);
     }
 }

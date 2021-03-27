@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
 
         for (User user : users) {
             UserDto userDto = new UserDto();
+            userDto.setId(user.getId());
             userDto.setFirstName(user.getFirstName());
             userDto.setLastname(user.getLastName());
             userDto.setEmail(user.getEmail());
@@ -30,5 +31,22 @@ public class UserServiceImpl implements UserService {
         }
 
         return userDtos;
+    }
+
+    @Override
+    public long countUsers() {
+        long countUser = findAll().size();
+        return countUser;
+    }
+
+    @Override
+    public UserDto userByEmail(String email) {
+        User user = userDao.findByEmail(email);
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastname(user.getLastName());
+        userDto.setEmail(user.getEmail());
+        return userDto;
     }
 }
