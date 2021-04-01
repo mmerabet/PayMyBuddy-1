@@ -1,12 +1,15 @@
 package com.steve.paymybuddy.service.impl;
 
+import com.steve.paymybuddy.adapter.BankAccountAdpater;
 import com.steve.paymybuddy.dao.BankAccountDao;
 import com.steve.paymybuddy.dto.BankAccountDto;
+import com.steve.paymybuddy.dto.UserDto;
 import com.steve.paymybuddy.model.BankAccount;
 import com.steve.paymybuddy.service.BankAccountService;
 import com.steve.paymybuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +17,19 @@ import java.util.List;
 @Service
 public class BankAccountServiceImpl implements BankAccountService {
 
+    private final BankAccountAdpater bankAccountAdapter;
 
-    public BankAccountServiceImpl(UserService userService) {
+    private final BankAccountDao bankAccountDao;
+
+    private final UserService userService;
+
+    @Autowired
+    public BankAccountServiceImpl(BankAccountDao bankAccountDao, UserService userService, BankAccountAdpater bankAccountAdpater) {
+        this.bankAccountDao = bankAccountDao;
+        this.userService = userService;
+        this.bankAccountAdapter =  bankAccountAdpater;
     }
 
-    @Autowired
-    BankAccountDao bankAccountDao;
-
-    @Autowired
-    UserService userService;
 
 
     @Override
@@ -32,12 +39,7 @@ public class BankAccountServiceImpl implements BankAccountService {
         List<BankAccount> bankAccountDaos = bankAccountDao.findAll();
 
         for (BankAccount bankAccount : bankAccountDaos) {
-
-            BankAccountDto bankAccountDto = new BankAccountDto();
-            bankAccountDto.setAccountName(bankAccount.getAccountName());
-            bankAccountDto.setBankName(bankAccount.getBankName());
-            bankAccountDto.setIban(bankAccount.getIban());
-            bankAccountDto.setBic(bankAccount.getBic());
+           BankAccountDto bankAccountDto = bankAccountAdapter.toDto(bankAccount);
             bankAccountDtos.add(bankAccountDto);
         }
         return bankAccountDtos;
@@ -45,14 +47,18 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public long countBankAccount() {
-        long countBankAccount = findAll().size();
-        return countBankAccount;
+      return bankAccountDao.count();
     }
 
     @Override
     public BankAccountDto bankAccountByEmail(String email) {
-
-//    userService.userByEmail(email).getBankAccounts()
+        UserDto userDto = userService.userByEmail(email);
+        if (userDto != null) {
+            List<BankAccountDto> bankAccounts = userDto.getBankAccounts();
+            if (!CollectionUtils.isEmpty(bankAccounts)) {
+                return bankAccounts.get(0);
+            }
+        }
         return null;
     }
 

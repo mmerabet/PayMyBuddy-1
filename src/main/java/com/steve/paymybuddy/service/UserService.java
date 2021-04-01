@@ -1,8 +1,10 @@
 package com.steve.paymybuddy.service;
 
 import com.steve.paymybuddy.dto.UserDto;
+import com.steve.paymybuddy.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     List<UserDto> findAll();
@@ -10,4 +12,6 @@ public interface UserService {
     long countUsers();
 
     UserDto userByEmail(String email);
+
+    Optional<User> userById(Integer id);
 }

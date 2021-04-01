@@ -1,7 +1,6 @@
 package com.steve.paymybuddy.web.controller;
 
 import com.steve.paymybuddy.dto.BankAccountDto;
-import com.steve.paymybuddy.dto.UserDto;
 import com.steve.paymybuddy.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,7 +35,7 @@ public class BankAccountController {
 
     @GetMapping(value = "/BankAccount/{email}")
     @ResponseStatus(HttpStatus.OK)
-    public List<BankAccountDto> user(@PathVariable String email) {
+    public BankAccountDto user(@PathVariable String email) {
         return bankAccountService.bankAccountByEmail(email);
     }
 }

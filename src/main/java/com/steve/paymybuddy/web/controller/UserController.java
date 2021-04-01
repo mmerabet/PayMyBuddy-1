@@ -35,7 +35,7 @@ public class UserController {
 
     @GetMapping(value = "/Users/{email}")
     @ResponseStatus(HttpStatus.OK)
-    public List<UserDto> user(@PathVariable String email) {
+    public UserDto user(@PathVariable String email) {
         return userService.userByEmail(email);
     }
 }

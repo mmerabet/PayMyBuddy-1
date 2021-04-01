@@ -10,12 +10,13 @@ public class BankAccountDto {
     private String bic;
     private String bankName;
     private String accountName;
+    @NotNull
     private UserDto userDto;
 
     public BankAccountDto() {
     }
 
-    public BankAccountDto(@NotNull String iban, String bic, String bankName, String accountName, UserDto userDto) {
+    public BankAccountDto(@NotNull String iban, String bic, String bankName, String accountName, @NotNull UserDto userDto) {
         this.iban = iban;
         this.bic = bic;
         this.bankName = bankName;

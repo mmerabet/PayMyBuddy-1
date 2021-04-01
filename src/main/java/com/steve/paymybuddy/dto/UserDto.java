@@ -11,7 +11,7 @@ public class UserDto {
     private Integer id;
     private String firstName;
     private String lastname;
-    private List<BankAccount> bankAccounts;
+    private List<BankAccountDto> bankAccounts;
 
     @Email
     @NotNull
@@ -20,7 +20,7 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Integer id, String firstName, String lastname, @Email @NotNull String email, List<BankAccount> bankAccounts) {
+    public UserDto(Integer id, String firstName, String lastname, @Email @NotNull String email, List<BankAccountDto> bankAccounts) {
         this.id = id;
         this.firstName = firstName;
         this.lastname = lastname;
@@ -60,11 +60,11 @@ public class UserDto {
         this.email = email;
     }
 
-    public List<BankAccount> getBankAccounts() {
+    public List<BankAccountDto> getBankAccounts() {
         return bankAccounts;
     }
 
-    public void setBankAccounts(List<BankAccount> bankAccounts) {
+    public void setBankAccounts(List<BankAccountDto> bankAccounts) {
         this.bankAccounts = bankAccounts;
     }
 
