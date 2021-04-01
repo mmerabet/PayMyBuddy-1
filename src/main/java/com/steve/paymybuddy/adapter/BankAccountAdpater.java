@@ -7,14 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class BankAccountAdpater {
 
-    public BankAccountDto toDto(BankAccount model){
+    public BankAccountDto toDto(BankAccount model) {
         BankAccountDto dto = new BankAccountDto();
 
         dto.setAccountName(model.getAccountName());
         dto.setBankName(model.getBankName());
         dto.setIban(model.getIban());
         dto.setBic(model.getBic());
-//        dto.getUserDto(model)
         return dto;
     }
 }

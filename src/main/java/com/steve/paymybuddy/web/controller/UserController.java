@@ -1,14 +1,14 @@
 package com.steve.paymybuddy.web.controller;
 
 import com.steve.paymybuddy.dto.UserDto;
+import com.steve.paymybuddy.model.User;
 import com.steve.paymybuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -20,6 +20,14 @@ public class UserController {
 
     // Pour le log4J
     private final Logger logger = Logger.getLogger(this.getClass().getName());
+
+
+    @PostMapping(value = "/userAdd", produces = "application/json")
+    public ResponseEntity<User> createUser(@RequestBody @Valid UserDto userAdd) throws Exception {
+        logger.info("CreatePerson : appel du controller");
+        userService.createUser(userAdd);
+        return new ResponseEntity(userAdd, HttpStatus.CREATED);
+    }
 
     @GetMapping(value = "/Users")
     @ResponseStatus(HttpStatus.OK)

@@ -15,6 +15,7 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
+		<dep.log4j2.version>2.2.6.release</dep.log4j2.version>
 	</properties>
 	<dependencies>
 		<dependency>

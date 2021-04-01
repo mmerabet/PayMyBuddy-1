@@ -14,4 +14,6 @@ public interface UserService {
     UserDto userByEmail(String email);
 
     Optional<User> userById(Integer id);
+
+    boolean createUser(UserDto user) throws Exception;
 }

@@ -32,10 +32,10 @@ public class User {
     @Column
     private Date createDate;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
     private List<BankAccount> bankAccounts;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "owner")
     private List<Relation> relations;
 
     public User() {
