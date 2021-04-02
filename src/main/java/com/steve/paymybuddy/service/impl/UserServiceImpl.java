@@ -3,23 +3,25 @@ package com.steve.paymybuddy.service.impl;
 import com.steve.paymybuddy.adapter.UserAdapter;
 import com.steve.paymybuddy.dao.UserDao;
 import com.steve.paymybuddy.dto.UserDto;
+import com.steve.paymybuddy.dto.UserSaveDto;
 import com.steve.paymybuddy.model.User;
 import com.steve.paymybuddy.service.UserService;
 import com.steve.paymybuddy.web.exception.DataAlreadyExistException;
 import com.steve.paymybuddy.web.exception.DataMissingException;
+import com.steve.paymybuddy.web.exception.DataNotExistException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
@@ -67,10 +69,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean createUser(UserDto userAdd) throws Exception {
-        Date date = new Date();
-        System.out.println("email présent");
-        User user = new User();
+    public boolean createUser(UserSaveDto userAdd) throws Exception {
 
 
 //            userDao.save(user);
@@ -99,18 +98,42 @@ public class UserServiceImpl implements UserService {
         // je verifie que l'adresse email n'est pas déja dans la base de donnée
 
         if (userDao.existsByEmail(userAdd.getEmail())) {
-
+            logger.error("Problem");
             throw new DataAlreadyExistException("Email déja existant!!" + userAdd.getEmail());
         }
-        user.setEmail(userAdd.getEmail());
-        user.setFirstName(userAdd.getFirstName());
-        user.setLastName(userAdd.getLastname());
-        user.setPassword(encoder.encode(userAdd.getPassword()));
-        user.setBalance(new BigDecimal(0));
-        user.setCreateDate(date);
-        userDao.save(user);
 
+        // je set mon model
+        User saveUser = userAdapter.toModel(userAdd);
+
+        //je sauvegarde l'user dans la base
+        userDao.save(saveUser);
         System.out.println("ajout user");
+        return true;
+    }
+
+    @Override
+    public boolean updateUser(UserSaveDto updateUser) {
+        if (!userDao.existsByEmail(updateUser.getEmail())) {
+            logger.error("Problem");
+            throw new DataNotExistException("Email n'étant pas dans la base!!" + updateUser.getEmail());
+        }
+        User user = userDao.findByEmail(updateUser.getEmail());
+        System.out.println(user);
+
+        // je set mon model
+        userAdapter.updateToModel(updateUser, user);
+        System.out.println(user);
+        userDao.save(user);
+        System.out.println("ajout user");
+        return true;
+    }
+
+    @Override
+    public boolean deleteUser(UserSaveDto deleteUser) {
+        if (userDao.existsByEmail(deleteUser.getEmail())){
+            User user = userDao.findByEmail(deleteUser.getEmail());
+            userDao.removeByEmail(deleteUser.getEmail());
+        }
         return true;
     }
 }

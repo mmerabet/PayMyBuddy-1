@@ -5,34 +5,23 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class UserDto {
-    private Integer id;
+public class UserSaveDto {
     private String firstName;
     private String lastname;
     private String password;
-    private List<BankAccountDto> bankAccounts;
 
     @Email
     @NotNull
     private String email;
 
-    public UserDto() {
+    public UserSaveDto() {
     }
 
-
-    public UserDto(String firstName, String lastname, String password, @Email @NotNull String email) {
+    public UserSaveDto(String firstName, String lastname, String password, @Email @NotNull String email) {
         this.firstName = firstName;
         this.lastname = lastname;
         this.password = password;
         this.email = email;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -57,14 +46,6 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<BankAccountDto> getBankAccounts() {
-        return bankAccounts;
-    }
-
-    public void setBankAccounts(List<BankAccountDto> bankAccounts) {
-        this.bankAccounts = bankAccounts;
     }
 
     public String getEmail() {

@@ -1,6 +1,7 @@
 package com.steve.paymybuddy.service;
 
 import com.steve.paymybuddy.dto.UserDto;
+import com.steve.paymybuddy.dto.UserSaveDto;
 import com.steve.paymybuddy.model.User;
 
 import java.util.List;
@@ -15,5 +16,9 @@ public interface UserService {
 
     Optional<User> userById(Integer id);
 
-    boolean createUser(UserDto user) throws Exception;
+    boolean createUser(UserSaveDto user) throws Exception;
+
+    boolean updateUser(UserSaveDto updateUser);
+
+    boolean deleteUser(UserSaveDto deleteUser);
 }
