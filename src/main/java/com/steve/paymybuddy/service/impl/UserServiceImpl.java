@@ -12,8 +12,8 @@ import com.steve.paymybuddy.web.exception.DataNotExistException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -21,7 +21,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-
+@Transactional
+@EnableTransactionManagement
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
@@ -30,7 +31,6 @@ public class UserServiceImpl implements UserService {
 
     static Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
-    static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     @Autowired
     public UserServiceImpl(UserDao userDao, UserAdapter userAdapter) {
@@ -72,7 +72,6 @@ public class UserServiceImpl implements UserService {
     public boolean createUser(UserSaveDto userAdd) throws Exception {
 
 
-//            userDao.save(user);
         //je verifie que les informations ne sont pas manquantes
 
         if (userAdd.getFirstName().isEmpty()) {
@@ -130,10 +129,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteUser(UserSaveDto deleteUser) {
-        if (userDao.existsByEmail(deleteUser.getEmail())){
-            User user = userDao.findByEmail(deleteUser.getEmail());
-            userDao.removeByEmail(deleteUser.getEmail());
+        if (!userDao.existsByEmail(deleteUser.getEmail())) {
+            logger.error("Problem");
+            throw new DataNotExistException("Email n'étant pas dans la base!!" + deleteUser.getEmail());
         }
+            userDao.removeByEmail(deleteUser.getEmail());
         return true;
     }
 }

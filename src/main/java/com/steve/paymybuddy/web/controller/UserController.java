@@ -37,7 +37,7 @@ public class UserController {
         userService.updateUser(updateUser);
         return new ResponseEntity(updateUser, HttpStatus.NO_CONTENT);
     }
-    @Transactional
+
     @DeleteMapping(value ="/User")
     public ResponseEntity<User>deleteUser(@RequestBody @Valid UserSaveDto deleteUser) throws Exception {
         logger.info("deleteUser : appel du controller");
