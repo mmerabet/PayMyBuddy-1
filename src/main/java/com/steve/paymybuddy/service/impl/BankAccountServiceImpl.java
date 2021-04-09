@@ -66,4 +66,9 @@ public class BankAccountServiceImpl implements BankAccountService {
         // FIXME : simplifier la methhode pour quelle n'utilise plus findAll
         return findAll().stream().filter(bankAccountDto -> bankAccountDto.getUserDto().getId().equals(id)).findFirst().orElse(null);
     }
+
+    @Override
+    public BankAccountDto findBankAccountByIban(String iban) {
+       return bankAccountAdapter.toDto(bankAccountDao.findBankAccountByIban(iban));
+    }
 }

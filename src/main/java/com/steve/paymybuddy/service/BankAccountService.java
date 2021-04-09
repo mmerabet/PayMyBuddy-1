@@ -12,4 +12,6 @@ public interface BankAccountService {
     BankAccountDto bankAccountByEmail(String email);
 
     BankAccountDto getBankAccountUserById(Integer id);
+
+    BankAccountDto findBankAccountByIban(String iban);
 }

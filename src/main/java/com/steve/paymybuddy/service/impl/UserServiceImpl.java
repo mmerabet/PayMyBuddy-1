@@ -9,9 +9,11 @@ import com.steve.paymybuddy.service.UserService;
 import com.steve.paymybuddy.web.exception.DataAlreadyExistException;
 import com.steve.paymybuddy.web.exception.DataMissingException;
 import com.steve.paymybuddy.web.exception.DataNotExistException;
+import com.steve.paymybuddy.web.exception.DataNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +32,8 @@ public class UserServiceImpl implements UserService {
     private final UserAdapter userAdapter;
 
     static Logger logger = LogManager.getLogger(UserServiceImpl.class);
+
+    static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
 
     @Autowired
@@ -64,8 +68,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> userById(Integer id) {
-        Optional<User> userId = userDao.findById(id);
-        return userId;
+        Optional<User> user = userDao.findById(id);
+        return user;
     }
 
     @Override
@@ -133,7 +137,42 @@ public class UserServiceImpl implements UserService {
             logger.error("Problem");
             throw new DataNotExistException("Email n'étant pas dans la base!!" + deleteUser.getEmail());
         }
-            userDao.removeByEmail(deleteUser.getEmail());
+        userDao.removeByEmail(deleteUser.getEmail());
+        return true;
+    }
+
+    @Override
+    public boolean addBuddy(UserSaveDto addBuddy, Integer idOwner) {
+        Optional<User> user = userDao.findById(idOwner);
+        if (user.isEmpty()){
+            logger.error("Problem");
+            throw new DataNotExistException("L'user n'est pas dans la base!!" + addBuddy.toString());
+        }
+        return false;
+    }
+
+
+    @Override
+    public boolean connectUser(UserSaveDto userSaveDto) {
+        if ( userSaveDto.getEmail().isEmpty() || userSaveDto.getEmail().isBlank()) {
+            logger.error("Problem");
+            throw new DataMissingException("Email non rentrer" + userSaveDto.getEmail());
+        }
+        if (userSaveDto.getPassword().isEmpty()) {
+            logger.error("Problem");
+            throw new DataMissingException("Password non rentrer" + userSaveDto.getEmail());
+        }
+        User userBase = userDao.findByEmail(userSaveDto.getEmail());
+
+        if (!userBase.getEmail().equals(userSaveDto.getEmail())) {
+            logger.error("Problem");
+            throw new DataNotFoundException("Email n'étant pas dans la base!!" + userSaveDto.getEmail());
+        }
+        if (!encoder.matches(userSaveDto.getPassword(), userBase.getPassword())) {
+            logger.error("Problem");
+            throw new DataNotFoundException("Password ne correspond pas!!" + userSaveDto.getEmail());
+
+        }
         return true;
     }
 }

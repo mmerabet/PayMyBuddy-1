@@ -21,4 +21,8 @@ public interface UserService {
     boolean updateUser(UserSaveDto updateUser);
 
     boolean deleteUser(UserSaveDto deleteUser);
+
+    boolean addBuddy(UserSaveDto addBuddy ,Integer idOwner);
+
+    boolean connectUser(UserSaveDto connectUser);
 }

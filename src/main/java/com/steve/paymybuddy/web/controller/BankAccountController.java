@@ -21,21 +21,28 @@ public class BankAccountController {
     // Pour le log4J
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    @GetMapping(value = "/BankAccount")
+    @GetMapping(value = "/bankAccount")
     @ResponseStatus(HttpStatus.OK)
     public List<BankAccountDto> bankAccount() {
         return bankAccountService.findAll();
     }
 
-    @GetMapping(value = "/BankAccountCount")
+    @GetMapping(value = "/bankAccountCount")
     @ResponseStatus(HttpStatus.OK)
     public long countUsers() {
         return bankAccountService.countBankAccount();
     }
 
-    @GetMapping(value = "/BankAccount/{email}")
+    @GetMapping(value = "/bankAccount/{email}")
     @ResponseStatus(HttpStatus.OK)
     public BankAccountDto user(@PathVariable String email) {
         return bankAccountService.bankAccountByEmail(email);
     }
+
+    @GetMapping(value = "/bankAccount/{iban}")
+    @ResponseStatus(HttpStatus.OK)
+    public BankAccountDto findBankAccountByIban(@PathVariable String iban) {
+        return bankAccountService.findBankAccountByIban(iban);
+    }
+
 }
