@@ -6,10 +6,7 @@ import com.steve.paymybuddy.dto.UserDto;
 import com.steve.paymybuddy.dto.UserSaveDto;
 import com.steve.paymybuddy.model.User;
 import com.steve.paymybuddy.service.UserService;
-import com.steve.paymybuddy.web.exception.DataAlreadyExistException;
-import com.steve.paymybuddy.web.exception.DataMissingException;
-import com.steve.paymybuddy.web.exception.DataNotExistException;
-import com.steve.paymybuddy.web.exception.DataNotFoundException;
+import com.steve.paymybuddy.web.exception.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -160,13 +157,17 @@ public class UserServiceImpl implements UserService {
         }
         if (userSaveDto.getPassword().isEmpty()) {
             logger.error("Problem");
-            throw new DataMissingException("Password non rentrer" + userSaveDto.getEmail());
+            throw new DataMissingException("Password non rentrer" + userSaveDto.getPassword());
+        }
+        if (!userDao.existsByEmail(userSaveDto.getEmail())){
+            logger.error("Problem");
+            throw new DataNotFoundException("Email n'étant pas dans la base!!" + userSaveDto.getEmail());
         }
         User userBase = userDao.findByEmail(userSaveDto.getEmail());
 
         if (!userBase.getEmail().equals(userSaveDto.getEmail())) {
             logger.error("Problem");
-            throw new DataNotFoundException("Email n'étant pas dans la base!!" + userSaveDto.getEmail());
+            throw new DataIncorrectException("L'email ou le mot de passe est incorrect" + userSaveDto.getEmail());
         }
         if (!encoder.matches(userSaveDto.getPassword(), userBase.getPassword())) {
             logger.error("Problem");

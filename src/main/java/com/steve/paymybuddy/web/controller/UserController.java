@@ -7,6 +7,7 @@ import com.steve.paymybuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.logging.Logger;
 
-@RestController
+@Controller
 public class UserController {
 
     @Autowired
@@ -28,14 +29,14 @@ public class UserController {
         model.addAttribute("message", "you are Good");
         return "homieo";
     }
-    @PostMapping(value = "/userAdd", produces = "application/json")
+    @PostMapping(value = "/userAdd")
     public ResponseEntity<User> createUser(@RequestBody @Valid UserSaveDto userAdd) throws Exception {
         logger.info("CreateUser : appel du controller");
         userService.createUser(userAdd);
         return new ResponseEntity(userAdd, HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/addBuddy/{id}", produces = "application/json")
+    @PostMapping(value = "/addBuddy/{id}")
     public ResponseEntity<User> addBuddy(@RequestBody UserSaveDto addBuddy, @PathVariable Integer idOwner) throws Exception {
         logger.info("CreateUser : appel du controller");
         userService.addBuddy(addBuddy,idOwner);
@@ -80,8 +81,8 @@ public class UserController {
 //        return new ResponseEntity(connectUser, HttpStatus.OK);
 //    }
 
-    @PostMapping(value = "/connect", produces = "application/json")
-    public ResponseEntity<User> connectUser(@RequestBody @Valid UserSaveDto connectUser) throws Exception {
+    @PostMapping(value = "/connect")
+    public ResponseEntity<Boolean> connectUser(@RequestBody UserSaveDto connectUser) throws Exception {
         logger.info("connectUser : appel du controller");
         userService.connectUser(connectUser);
         return new ResponseEntity(connectUser, HttpStatus.CREATED);
