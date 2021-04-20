@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Controller
+//@RestController
 public class UserController {
 
     @Autowired
@@ -24,10 +25,10 @@ public class UserController {
     // Pour le log4J
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    @GetMapping("/hello")
+    @GetMapping("/home")
     public String hello(Model model){
-        model.addAttribute("message", "you are Good");
-        return "homieo";
+        model.addAttribute("users", users());
+        return "fragments/home";
     }
     @PostMapping(value = "/userAdd")
     public ResponseEntity<User> createUser(@RequestBody @Valid UserSaveDto userAdd) throws Exception {

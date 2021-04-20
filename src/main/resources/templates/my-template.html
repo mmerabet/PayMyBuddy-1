@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Template</title>
+    <link rel="stylesheet" th:href = "@{/css/main.css}">
+</head>
+<body>
+<header th:fragment="fragment-header">
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 box-shadow">
+        <h5 class="my-0 mr-md-auto font-weight-normal logo">Pay My Buddy</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2" th:href="@{/home}">Home</a>
+            <a class="p-2" th:href="@{/transferoo}">Transfer</a>
+            <a class="p-2" th:href="@{/transferoo}">Profile</a>
+            <a class="p-2" th:href="@{/transferoo}">Contact</a>
+            <a class="p-2" th:href="@{/transferoo}">Log off</a>
+        </nav>
+    </div>
+    <div>
+        <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Transfer</a></li>
+        </ol>
+    </div>
+</header>
+</body>
+</html>

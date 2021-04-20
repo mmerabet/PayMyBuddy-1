@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
         for (User user : users) {
             userDtos.add(userAdapter.toDto(user));
         }
-        System.out.println(userDtos);
         return userDtos;
     }
 
@@ -107,7 +106,6 @@ public class UserServiceImpl implements UserService {
 
         //je sauvegarde l'user dans la base
         userDao.save(saveUser);
-        System.out.println("ajout user");
         return true;
     }
 
@@ -118,13 +116,10 @@ public class UserServiceImpl implements UserService {
             throw new DataNotExistException("Email n'étant pas dans la base!!" + updateUser.getEmail());
         }
         User user = userDao.findByEmail(updateUser.getEmail());
-        System.out.println(user);
 
         // je set mon model
         userAdapter.updateToModel(updateUser, user);
-        System.out.println(user);
         userDao.save(user);
-        System.out.println("ajout user");
         return true;
     }
 
