@@ -2,11 +2,12 @@ package com.steve.paymybuddy.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
 
     @Id
@@ -38,26 +39,24 @@ public class User {
     @OneToMany(mappedBy = "owner")
     private List<Relation> relations;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id" ),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles ;
+
     public User() {
     }
 
-    public User(Integer id, String firstName, String lastName, String email, String password, BigDecimal balance, Date createDate) {
-        this.id = id;
-        this.firstname = firstName;
-        this.lastname = lastName;
+    public User(String firstname, String lastname, String email, String password, BigDecimal balance, Date createDate, List<BankAccount> bankAccounts, List<Relation> relations, Collection<Role> roles) {
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.balance = balance;
         this.createDate = createDate;
-    }
-
-    public User(String firstName, String lastName, String email, String password, BigDecimal balance, Date createDate) {
-        this.firstname = firstName;
-        this.lastname = lastName;
-        this.email = email;
-        this.password = password;
-        this.balance = balance;
-        this.createDate = createDate;
+        this.bankAccounts = bankAccounts;
+        this.relations = relations;
+        this.roles = roles;
     }
 
     public Integer getId() {
@@ -130,6 +129,14 @@ public class User {
 
     public void setRelations(List<Relation> relations) {
         this.relations = relations;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

@@ -3,11 +3,12 @@ package com.steve.paymybuddy.service;
 import com.steve.paymybuddy.dto.UserDto;
 import com.steve.paymybuddy.dto.UserSaveDto;
 import com.steve.paymybuddy.model.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
     List<UserDto> findAll();
 
     long countUsers();

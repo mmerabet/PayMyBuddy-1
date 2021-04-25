@@ -86,7 +86,17 @@ public class TransferServiceImpl implements TransferService {
 
     @Override
     public ExternalTransferDto doExternalTransfer(ExternalTransferDto externalTransferDto) {
+        // je recupere l'user par son email dans le dto
+        // je check si il est present dans la base
+        // je check si le
+        String email = externalTransferDto.getEmailUser();
+        if (!userDao.existsByEmail(email)) {
+            throw new DataNotFoundException("email non present");
+        }
+//        if (externalTransferDto.getIbanUser()) {
+//
         return null;
+//        }
     }
 }
 

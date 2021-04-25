@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Pay my Buddy</title>
-    <link th:href = "@{/css/main.css}" rel="stylesheet">
-    <link rel="stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-</head>
+<head th:insert="~{my-template :: fragment-head}"></head>
 <body>
 <header th:insert="~{my-template :: fragment-header}"></header>
 
@@ -27,7 +21,7 @@
             </ul>
         </div>
     </div>
-    <input type="datetime" name="" id="">
+    <label for=""></label><input type="datetime-local" name="" id="">
 </main>
 <!--<h2 th:text="' thymleaf ' + ${message} + 'App'"></h2>-->
 <h2>bonjour</h2>
@@ -53,6 +47,6 @@
     </tr>
     </tbody>
 </table>
-<script type="text/javascript" th:src ="@{/js/actions.js}"></script>
+<footer th:insert="~{my-template :: fragment-footer}"></footer>
 </body>
 </html>

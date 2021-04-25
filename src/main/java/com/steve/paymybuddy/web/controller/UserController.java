@@ -19,16 +19,29 @@ import java.util.logging.Logger;
 //@RestController
 public class UserController {
 
+   final private UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     // Pour le log4J
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @GetMapping("/home")
-    public String hello(Model model){
+    public String welcome(Model model){
         model.addAttribute("users", users());
         return "fragments/home";
+    }
+    @GetMapping("/connect/formConnexion")
+    public String signIn(Model model){
+        return "fragments/formConnexion";
+    }
+
+    @GetMapping("/connect/formInscription")
+    public String signUp(Model model){
+        return "fragments/formInscription";
     }
     @PostMapping(value = "/userAdd")
     public ResponseEntity<User> createUser(@RequestBody @Valid UserSaveDto userAdd) throws Exception {
@@ -76,17 +89,16 @@ public class UserController {
         return userService.userByEmail(email);
     }
 
-//    @GetMapping(value = "/connect")
+
+//    @PostMapping(value = "/connect")
 //    public ResponseEntity<Boolean> connectUser(@RequestBody UserSaveDto connectUser) throws Exception {
 //        logger.info("connectUser : appel du controller");
-//        return new ResponseEntity(connectUser, HttpStatus.OK);
+//        userService.connectUser(connectUser);
+//        return new ResponseEntity(connectUser, HttpStatus.CREATED);
 //    }
-
-    @PostMapping(value = "/connect")
-    public ResponseEntity<Boolean> connectUser(@RequestBody UserSaveDto connectUser) throws Exception {
-        logger.info("connectUser : appel du controller");
-        userService.connectUser(connectUser);
-        return new ResponseEntity(connectUser, HttpStatus.CREATED);
+    @RequestMapping(value = "/connect", method = RequestMethod.POST)
+    public String doRegistration(@ModelAttribute("user") User user){
+            return "home";
     }
 
 }

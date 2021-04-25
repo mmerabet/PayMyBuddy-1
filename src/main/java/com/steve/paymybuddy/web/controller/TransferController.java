@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.logging.Logger;
 
-@RestController
+//@RestController
+@Controller
 public class TransferController {
 
     @Autowired
     TransferService transferService;
+    @Autowired
+    UserController userController;
 
     // Pour le log4J
     private final Logger logger = Logger.getLogger(this.getClass().getName());
@@ -31,6 +34,7 @@ public class TransferController {
     @GetMapping("/transferoo")
     public String helloa(Model model){
         model.addAttribute("transfers", transfer());
+        model.addAttribute("users", userController.users());
         return "fragments/transfer";
     }
 
