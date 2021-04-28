@@ -1,3 +1,13 @@
+$color-blue: #0076D9;
+$color-green: #5CB95C;
+$color-white: #fff;
+$color-gray: #F5F5F5;
+
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   height: 100vh;
 }
@@ -34,17 +44,9 @@ nav a:hover {
 }
 
 main {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  margin-left: 10rem;
+  margin-right: 10rem;
   height: 100%;
-  flex-direction: column;
 }
 
 main form {
@@ -71,12 +73,14 @@ main form .logo {
   text-align: center;
   width: 50%;
 }
-.form-group{
+
+.form-group {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 .container-input {
   position: relative;
   margin-bottom: 35px;
@@ -142,28 +146,99 @@ main form .logo {
   position: absolute;
   margin: 10px;
 }
+
 /*# sourceMappingURL=style.css.map */
 .logoForm {
   top: 25px;
 }
-form{
+
+form {
   position: relative;
 }
-header{
-  .logo{
-    &:hover{
-        background-color: #2c952c;
+
+header {
+  .logo {
+    &:hover {
+      background-color: #2c952c;
     }
-    a{
+
+    a {
       text-decoration: none;
       color: #fff;
-      &:hover{
+
+      &:hover {
         color: #fff;
         text-decoration: none;
 
       }
+    }
+  }
+
+}
+
+.container-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+
+.add-connection {
+  background-color: $color-blue;
+  color: $color-white;
+}
+
+.entete {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.container-dropdown {
+  display: flex;
+  justify-content: center;
+  background-color: $color-gray;
+  padding: 4rem;
+  width: 100%;
+
+}
+
+.container-table {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  table {
+    width: 100%;
+
+    thead {
+      background-color: $color-green;
+      color: $color-white;
+      padding: 15px;
+    }
   }
 }
 
+button {
+  outline: none;
+  font-weight: bold;
+  border: none;
+  border-radius: 15px;
+  padding: 10px 60px;
+
 }
 
+.pay {
+  background-color: $color-green;
+  color: $color-white;
+  outline: none;
+}
+.title-transaction{
+  margin-top: 5rem;
+  display: flex;
+  align-self: flex-start;
+}
+.space{
+  padding-right: 15rem;
+}

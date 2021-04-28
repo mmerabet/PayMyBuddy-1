@@ -1,4 +1,8 @@
 @charset "UTF-8";
+* {
+  box-sizing: border-box;
+}
+
 body {
   height: 100vh;
 }
@@ -35,17 +39,9 @@ nav a:hover {
 }
 
 main {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  margin-left: 10rem;
+  margin-right: 10rem;
   height: 100%;
-  flex-direction: column;
 }
 
 main form {
@@ -164,6 +160,71 @@ header .logo a {
 header .logo a:hover {
   color: #fff;
   text-decoration: none;
+}
+
+.container-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.add-connection {
+  background-color: #0076D9;
+  color: #fff;
+}
+
+.entete {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.container-dropdown {
+  display: flex;
+  justify-content: center;
+  background-color: #F5F5F5;
+  padding: 4rem;
+  width: 100%;
+}
+
+.container-table {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+.container-table table {
+  width: 100%;
+}
+.container-table table thead {
+  background-color: #5CB95C;
+  color: #fff;
+  padding: 15px;
+}
+
+button {
+  outline: none;
+  font-weight: bold;
+  border: none;
+  border-radius: 15px;
+  padding: 10px 60px;
+}
+
+.pay {
+  background-color: #5CB95C;
+  color: #fff;
+  outline: none;
+}
+
+.title-transaction {
+  margin-top: 5rem;
+  display: flex;
+  align-self: flex-start;
+}
+
+.space {
+  padding-right: 15rem;
 }
 
 /*# sourceMappingURL=main.css.map */
