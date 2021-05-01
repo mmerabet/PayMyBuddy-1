@@ -34,7 +34,7 @@ public class UserController {
         model.addAttribute("users", users());
         return "index";
     }
-    @GetMapping("/connect/formConnexion")
+    @GetMapping("/connectoio/formConnexion")
     public String signIn(Model model){
         return "fragments/formConnexion";
     }
@@ -97,7 +97,7 @@ public class UserController {
 //        userService.connectUser(connectUser);
 //        return new ResponseEntity(connectUser, HttpStatus.CREATED);
 //    }
-    @RequestMapping(value = "/connect", method = RequestMethod.POST)
+    @RequestMapping(value = "/connectooo", method = RequestMethod.POST)
     public String doRegistration(@ModelAttribute("user") User user){
             return "index";
     }
