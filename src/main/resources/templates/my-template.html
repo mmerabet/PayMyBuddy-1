@@ -33,13 +33,13 @@
         <h5 class="my-0 mr-md-auto font-weight-normal logo"><a th:href="@{/home}">Pay My Buddy</a></h5>
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2" th:href="@{/connect/formConnexion}">Sign in</a>
-            <a class="p-2" th:href="@{/connect/formInscription}">Sign Up</a>
+            <a class="p-2" th:href="@{/inscription}">Sign Up</a>
         </nav>
     </div>
 </header>
 
 
-<form th:fragment="fragment-formConnexion" th:action="@{/connect}" method="post" th:object="">
+<form th:fragment="fragment-formConnexion" th:action="@{/connect}" method="POST" th:object="">
         <div class="logo position-absolute logoForm">Pay my Buddy</div>
     <div class="form-group">
         <label for="email-Connec">Email address</label>
@@ -57,7 +57,7 @@
 </form>
 
 
-<form th:fragment="fragment-formIncription" th:action="@{/inscription}" th:object="${user}">
+<form th:fragment="fragment-formIncription" th:action="@{/home}" th:object="${user}" method="POST">
     <div class="logo position-absolute logoForm">Pay my Buddy</div>
     <div class="form-group">
         <label for="firstname-inc">Prenom</label>
@@ -76,7 +76,7 @@
         <input th:field="*{email}" type="email" class="form-control" id="email-inc" aria-describedby="emailHelp" placeholder="Enter email">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
-    <button type="submit" class="btn btn-primary">Connexion</button>
+    <button type="submit" class="btn btn-primary">Inscription</button>
 </form>
 
 <footer th:fragment="fragment-footer">

@@ -29,15 +29,9 @@ public class Role {
         return name;
     }
 
-    public void setName(String role_name) {
-        this.name = role_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", role_name='" + name + '\'' +
-                '}';
-    }
+
 }

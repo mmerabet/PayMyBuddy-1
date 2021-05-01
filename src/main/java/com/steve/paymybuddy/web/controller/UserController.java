@@ -39,8 +39,9 @@ public class UserController {
         return "fragments/formConnexion";
     }
 
-    @GetMapping("/connect/formInscription")
+    @GetMapping("/inscription")
     public String signUp(Model model){
+        model.addAttribute("users", users());
         return "fragments/formInscription";
     }
     @PostMapping(value = "/userAdd")
