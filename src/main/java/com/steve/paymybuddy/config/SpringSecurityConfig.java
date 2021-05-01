@@ -24,17 +24,24 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity ) throws Exception{
-        httpSecurity.csrf().disable();
+        httpSecurity.authorizeRequests().antMatchers(
+                "/inscription**",
+                "/js/**",
+                "/css/**",
+                "/img/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .and()
+                .logout()
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout")
+                .permitAll();
 
-        httpSecurity.authorizeRequests().antMatchers("/actuactor*").permitAll();
-        httpSecurity.authorizeRequests().antMatchers("/actuactor/**").permitAll();
-        httpSecurity.authorizeRequests().antMatchers("/h2-console/**/**").permitAll();
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET,"/*").permitAll();
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, "/*").permitAll();
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.PUT, "/*").permitAll();
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.DELETE, "/*").permitAll();
-        httpSecurity.formLogin().loginPage("/connect/formConnexion").permitAll();
-        httpSecurity.logout().invalidateHttpSession(true).clearAuthentication(true).logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/logout?logout");
     }
    @Bean
     public BCryptPasswordEncoder passwordEncoder(){

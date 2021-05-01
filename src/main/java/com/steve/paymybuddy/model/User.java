@@ -40,22 +40,20 @@ public class User {
     private List<Relation> relations;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id" ),
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles ;
+    private Collection<Role> roles;
 
     public User() {
     }
 
-    public User(String firstname, String lastname, String email, String password, BigDecimal balance, Date createDate, List<BankAccount> bankAccounts, List<Relation> relations, Collection<Role> roles) {
+    public User(String firstname, String lastname, String email, String password, BigDecimal balance, Date createDate, Collection<Role> roles) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.balance = balance;
         this.createDate = createDate;
-        this.bankAccounts = bankAccounts;
-        this.relations = relations;
         this.roles = roles;
     }
 

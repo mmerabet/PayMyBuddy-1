@@ -5,7 +5,13 @@
 <!--<header th:insert="~{my-template :: fragment-header}"></header>-->
 <header th:insert="~{my-template :: fragment-header-new}"></header>
 <main>
+  <div th:if="${param.success}">
+    <div class="alert alert-info">You've successfully registered
+      to our awesome app!</div>
+  </div>
   <form th:insert="~{my-template :: fragment-formIncription}"></form>
+
+
 </main>
 <footer th:insert="~{my-template :: fragment-footer}"></footer>
 </body>

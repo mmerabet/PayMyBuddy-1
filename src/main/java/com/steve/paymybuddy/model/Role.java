@@ -1,22 +1,20 @@
 package com.steve.paymybuddy.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "role")
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String role_name;
+    private String name;
 
     public Role() {
     }
 
-    public Role(String role_name) {
-        this.role_name = role_name;
+    public Role(String name) {
+        this.name = name;
     }
 
     public Integer getId() {
@@ -27,19 +25,19 @@ public class Role {
         this.id = id;
     }
 
-    public String getRole_name() {
-        return role_name;
+    public String getName() {
+        return name;
     }
 
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
+    public void setName(String role_name) {
+        this.name = role_name;
     }
 
     @Override
     public String toString() {
         return "Role{" +
                 "id=" + id +
-                ", role_name='" + role_name + '\'' +
+                ", role_name='" + name + '\'' +
                 '}';
     }
 }

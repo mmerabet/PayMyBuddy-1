@@ -1,9 +1,12 @@
 package com.steve.paymybuddy.service.impl;
 
 import com.steve.paymybuddy.adapter.UserAdapter;
+import com.steve.paymybuddy.dao.RoleDao;
 import com.steve.paymybuddy.dao.UserDao;
 import com.steve.paymybuddy.dto.UserDto;
+import com.steve.paymybuddy.dto.UserRegistrationDto;
 import com.steve.paymybuddy.dto.UserSaveDto;
+import com.steve.paymybuddy.model.Role;
 import com.steve.paymybuddy.model.User;
 import com.steve.paymybuddy.service.UserService;
 import com.steve.paymybuddy.web.exception.*;
@@ -17,7 +20,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,15 +37,31 @@ public class UserServiceImpl implements UserService {
 
     private final UserAdapter userAdapter;
 
+    private final RoleDao roleDao;
+
     static Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
     static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
 
     @Autowired
-    public UserServiceImpl(UserDao userDao, UserAdapter userAdapter) {
+    public UserServiceImpl(UserDao userDao, UserAdapter userAdapter, RoleDao roleDao) {
         this.userDao = userDao;
         this.userAdapter = userAdapter;
+        this.roleDao = roleDao;
+    }
+
+    @Override
+    public User save(UserRegistrationDto userRegistrationDto) {
+        Role role = roleDao.findRoleByName("USER");
+        User user = new User(userRegistrationDto.getFirstname(), userRegistrationDto.getLastname(), userRegistrationDto.getEmail(),
+                encoder.encode(userRegistrationDto.getPassword()), BigDecimal.ZERO, Timestamp.valueOf(LocalDateTime.now()), Arrays.asList(role));
+        return userDao.save(user);
+
+    }
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return null;
     }
 
     @Override
@@ -172,10 +195,5 @@ public class UserServiceImpl implements UserService {
 
         }
         return true;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
     }
 }

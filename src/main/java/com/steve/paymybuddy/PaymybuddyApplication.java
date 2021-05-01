@@ -22,9 +22,9 @@ public class PaymybuddyApplication {
 
         ConfigurableApplicationContext context = SpringApplication.run(PaymybuddyApplication.class, args);
 
-        //Test connection JPA
-        UserDao userDao = context.getBean(UserDao.class);
-        RoleDao roleDao = context.getBean(RoleDao.class);
+//        //Test connection JPA
+//        UserDao userDao = context.getBean(UserDao.class);
+//        RoleDao roleDao = context.getBean(RoleDao.class);
 //        System.out.println("list des users " + userDao.findAll());
 
         //Test liaison entre user et bankAccount
@@ -40,12 +40,12 @@ public class PaymybuddyApplication {
 
         //test relation
 //        System.out.println(userDao.findAll().get(0).getRelations().get(0));
-        Collection<Role> roleCollection = new ArrayList<>();
-        Role role = new Role();
-        role = roleDao.getOne(1);
-        roleCollection.add(role);
-        User user = userDao.findByEmail("tr@gmail.com");
-        user.setRoles(roleCollection);
-        userDao.save(user);
+//        Collection<Role> roleCollection = new ArrayList<>();
+//        Role role = new Role();
+//        role = roleDao.getOne(1);
+//        roleCollection.add(role);
+//        User user = userDao.findByEmail("tr@gmail.com");
+//        user.setRoles(roleCollection);
+//        userDao.save(user);
     }
 }
