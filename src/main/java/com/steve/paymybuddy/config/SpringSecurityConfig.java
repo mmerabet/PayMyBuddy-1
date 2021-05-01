@@ -21,20 +21,21 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
 
-
     @Override
     protected void configure(HttpSecurity httpSecurity ) throws Exception{
         httpSecurity.authorizeRequests().antMatchers(
+                "/",
                 "/registration**",
                 "/connect**",
-                "/",
+                "/transfer**",
+                "/login**",
                 "/js/**",
                 "/css/**",
                 "/img/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/home")
                 .permitAll()
                 .and()
                 .logout()

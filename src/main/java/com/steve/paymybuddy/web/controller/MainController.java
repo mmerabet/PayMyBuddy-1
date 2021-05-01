@@ -1,6 +1,7 @@
 package com.steve.paymybuddy.web.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -16,8 +17,23 @@ public class MainController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/home")
+    public String welcome(){
+        return "index";
+    }
+
+    @GetMapping("/contact")
+    public String contact(){
+        return "contact";
+    }
+
     @PostMapping("/connect")
     public String afterLogin(){
-        return "redirect:/home";
+        return "home";
+    }
+    @GetMapping("/connect")
+    public String logger(){
+        return "home";
     }
 }

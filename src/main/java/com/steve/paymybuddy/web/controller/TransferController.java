@@ -25,17 +25,17 @@ public class TransferController {
     // Pour le log4J
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    @GetMapping(value = "/Transfer")
+    @GetMapping(value = "/Transferu")
     @ResponseStatus(HttpStatus.OK)
     public List<TransferDto> transfer() {
         return transferService.findAll();
     }
 
-    @GetMapping("/transferoo")
+    @GetMapping("/transfer")
     public String helloa(Model model){
         model.addAttribute("transfers", transfer());
         model.addAttribute("users", userController.users());
-        return "fragments/transfer";
+        return "transfer";
     }
 
     @PostMapping(value = "/Transfer/internal")

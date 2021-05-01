@@ -29,11 +29,20 @@ public class UserController {
     // Pour le log4J
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    @GetMapping("/home")
-    public String welcome(Model model){
-        model.addAttribute("users", users());
-        return "index";
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @GetMapping("/connectoio/formConnexion")
     public String signIn(Model model){
         return "fragments/formConnexion";
