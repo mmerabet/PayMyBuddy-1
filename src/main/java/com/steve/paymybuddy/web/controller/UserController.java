@@ -32,7 +32,7 @@ public class UserController {
     @GetMapping("/home")
     public String welcome(Model model){
         model.addAttribute("users", users());
-        return "fragments/home";
+        return "index";
     }
     @GetMapping("/connect/formConnexion")
     public String signIn(Model model){
@@ -99,7 +99,7 @@ public class UserController {
 //    }
     @RequestMapping(value = "/connect", method = RequestMethod.POST)
     public String doRegistration(@ModelAttribute("user") User user){
-            return "home";
+            return "index";
     }
 
 }

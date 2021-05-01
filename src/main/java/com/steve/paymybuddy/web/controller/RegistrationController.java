@@ -1,5 +1,6 @@
 package com.steve.paymybuddy.web.controller;
 
+import com.steve.paymybuddy.dto.UserDto;
 import com.steve.paymybuddy.dto.UserRegistrationDto;
 import com.steve.paymybuddy.service.UserService;
 import org.springframework.stereotype.Controller;

@@ -33,7 +33,7 @@
         <h5 class="my-0 mr-md-auto font-weight-normal logo"><a th:href="@{/home}">Pay My Buddy</a></h5>
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2" th:href="@{/connect/formConnexion}">Sign in</a>
-            <a class="p-2" th:href="@{/inscription}">Sign Up</a>
+            <a class="p-2" th:href="@{/inscription}">Signaa Up</a>
         </nav>
     </div>
 </header>
@@ -57,26 +57,36 @@
 </form>
 
 
-<form th:fragment="fragment-formIncription" th:action="@{/home}" th:object="${user}" method="POST">
-    <div class="logo position-absolute logoForm">Pay my Buddy</div>
+<form th:fragment="fragment-formIncription" th:action="@{/inscription}" method="post" th:object="${user}">
     <div class="form-group">
-        <label for="firstname-inc">Prenom</label>
-        <input th:field="*{firstname}" type="text" class="form-control" id="firstname-inc" placeholder="Enter firstname">
+        <label class="control-label" for="firstName"> First Name </label>
+        <input id="firstName" class="form-control" th:field="*{firstname}"
+               required autofocus="autofocus" />
     </div>
+
     <div class="form-group">
-        <label for="name-inc">Nom</label>
-        <input th:field="*{lastname}" type="text" class="form-control" id="name-inc" placeholder="Enter name">
+        <label class="control-label" for="lastName"> Last Name </label> <input
+            id="lastName" class="form-control" th:field="*{lastname}"
+            required autofocus="autofocus" />
     </div>
+
     <div class="form-group">
-        <label for="password-inc">Password</label>
-        <input th:field="*{password}" type="password" class="form-control" id="password-inc" placeholder="Password">
+        <label class="control-label" for="email"> Email </label> <input
+            id="email" class="form-control" th:field="*{email}" required
+            autofocus="autofocus" />
     </div>
+
     <div class="form-group">
-        <label for="email-inc">Email address</label>
-        <input th:field="*{email}" type="email" class="form-control" id="email-inc" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label class="control-label" for="password"> Password </label> <input
+            id="password" class="form-control" type="password"
+            th:field="*{password}" required autofocus="autofocus" />
     </div>
-    <button type="submit" class="btn btn-primary">Inscription</button>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Register</button>
+        <span>Already registered? <a href="/" th:href="@{/login}">Login
+								here</a></span>
+    </div>
 </form>
 
 <footer th:fragment="fragment-footer">
