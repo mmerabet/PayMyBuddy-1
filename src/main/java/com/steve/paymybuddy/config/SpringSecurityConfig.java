@@ -27,6 +27,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/",
                 "/registration**",
                 "/connect**",
+                "/contact**",
                 "/transfer**",
                 "/login**",
                 "/js/**",
