@@ -1,6 +1,7 @@
 package com.steve.paymybuddy.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "bank_account")
@@ -21,6 +22,9 @@ public class BankAccount {
     @JoinColumn(name = "user_id")
     @ManyToOne
     private User user;
+
+    @OneToMany(mappedBy = "bankAccount")
+    private List<ExternalTransfer> externalTransfers;
 
     public BankAccount() {
     }
@@ -72,4 +76,19 @@ public class BankAccount {
         this.accountName = accountName;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<ExternalTransfer> getExternalTransfers() {
+        return externalTransfers;
+    }
+
+    public void setExternalTransfers(List<ExternalTransfer> externalTransfers) {
+        this.externalTransfers = externalTransfers;
+    }
 }

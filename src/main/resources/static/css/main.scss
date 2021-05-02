@@ -197,7 +197,9 @@ header {
 
 .container-dropdown {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
   background-color: $color-gray;
   padding: 4rem;
   width: 100%;

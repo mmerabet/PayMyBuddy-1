@@ -14,26 +14,7 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String index() {
+    public String home() {
         return "index";
-    }
-
-    @GetMapping("/home")
-    public String welcome(){
-        return "index";
-    }
-
-    @GetMapping("/contact")
-    public String contact(){
-        return "contact";
-    }
-
-    @PostMapping("/connect")
-    public String afterLogin(){
-        return "home";
-    }
-    @GetMapping("/connect")
-    public String logger(){
-        return "home";
     }
 }
